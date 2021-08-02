@@ -35,6 +35,20 @@ export default function App() {
     setTodos(todos.filter(todo => todo.id !== id))
   }
 
+  const handleToggle = (id) => {
+    const index = todos.findIndex(todo => todo.id === id);
+    console.log(id);
+    const selected = todos[index];
+    const nextTodos = [...todos];
+
+    nextTodos[index] = {
+      ...selected,
+      done: !selected.done
+    }
+
+    setTodos(nextTodos);
+  }
+
   const addTodo = (content) => {
     var newTodo = {
       id: nextId.current,
@@ -60,6 +74,8 @@ export default function App() {
               title={item.title}
               done={item.done}
               removeTodo={removeTodo}
+              onToggle={handleToggle}
+
               // keyExtractor={(_, index) => {
               //   return '${index}'
               // }}

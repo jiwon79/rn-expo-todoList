@@ -5,7 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import DeleteButton from './DeleteButton';
 
-const TodoItem = ({id, title, done, removeTodo}) => {
+const TodoItem = ({id, title, done, removeTodo, onToggle}) => {
   return (
     <Swipeable
       renderRightActions={() => 
@@ -18,7 +18,7 @@ const TodoItem = ({id, title, done, removeTodo}) => {
         <View style={styles.todo}>
           <TouchableOpacity
             activeOpacity={0.8}
-            // style = {[styles.done, styles.check_icon]}
+            onPress={() => onToggle(id)}
             style={[done ? styles.done: styles.check, styles.check_icon]}
           >
             <FontAwesome name="check" color={done ? '#ffffff':'#e0e0e0'} size={14}/>
