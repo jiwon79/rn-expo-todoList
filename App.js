@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
@@ -8,6 +8,20 @@ import TaskModal from './components/TaskModal';
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [todo, setTodo] = useState([
+    {
+      title: "일기쓰기",
+      done: true
+    },
+    {
+      title: "스터디 준비하기",
+      done: false
+    },
+    {
+      title: "test test test test test test test test test test test test test test test ",
+      done: false
+    }
+  ]);
 
   const handleModal = () => {
     setModalVisible(!modalVisible);
@@ -19,9 +33,20 @@ export default function App() {
       <Header
         handleModal={handleModal}
       />
-      <TodoItem title="리액트 네이티브 앱 만들기" done={true}/>
-      <TodoItem title="스터디 진행하기" done={false}/>
-      <TodoItem title="test test test test test test test test test test test test test test test test " done={false}/>
+      <FlatList 
+        data={todo}
+        renderItem={({item}) => {
+          return (
+            <TodoItem 
+              title={item.title}
+              done={item.done}
+              keyExtractor={(_, index) => {
+                return '${index}'
+              }}
+            />
+          )
+        }}
+      />
       <TaskModal 
         isVisible={modalVisible} 
         handleModal={handleModal}
