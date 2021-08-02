@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 60,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e5e5'
+    borderBottomColor: '#e5e5e5',
   },
 
   title: {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e5e5e5',
   },
-  
+
   done: {
     backgroundColor: '#6830CF',
   }
