@@ -1,23 +1,30 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
 import { FontAwesome } from '@expo/vector-icons';
+
+import DeleteButton from './DeleteButton';
 
 const TodoItem = ({title, done}) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.todo}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          // style = {[styles.done, styles.check_icon]}
-          style={[done ? styles.done: styles.check, styles.check_icon]}
-        >
-          <FontAwesome name="check" color={done ? '#ffffff':'#e0e0e0'} size={14}/>
-        </TouchableOpacity>
-        <Text style={styles.title}>
-          {title}
-        </Text>
+    <Swipeable
+      renderRightActions={() => <DeleteButton />}
+    >
+      <View style={styles.container}>
+        <View style={styles.todo}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            // style = {[styles.done, styles.check_icon]}
+            style={[done ? styles.done: styles.check, styles.check_icon]}
+          >
+            <FontAwesome name="check" color={done ? '#ffffff':'#e0e0e0'} size={14}/>
+          </TouchableOpacity>
+          <Text style={styles.title}>
+            {title}
+          </Text>
+        </View>
       </View>
-    </View>
+    </Swipeable>
   )
 }
 
