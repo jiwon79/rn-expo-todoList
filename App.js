@@ -31,6 +31,9 @@ export default function App() {
     setModalVisible(!modalVisible);
   }
 
+  const removeTodo = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id))
+  }
 
   const addTodo = (content) => {
     var newTodo = {
@@ -56,6 +59,7 @@ export default function App() {
               id={item.id}
               title={item.title}
               done={item.done}
+              removeTodo={removeTodo}
               // keyExtractor={(_, index) => {
               //   return '${index}'
               // }}

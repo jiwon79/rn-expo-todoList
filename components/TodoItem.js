@@ -5,11 +5,15 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import DeleteButton from './DeleteButton';
 
-const TodoItem = ({id, title, done}) => {
+const TodoItem = ({id, title, done, removeTodo}) => {
   return (
     <Swipeable
-      renderRightActions={() => <DeleteButton />}
-    >
+      renderRightActions={() => 
+        <DeleteButton 
+          id={id}
+          removeTodo={removeTodo}
+        />
+      }>
       <View style={styles.container}>
         <View style={styles.todo}>
           <TouchableOpacity
