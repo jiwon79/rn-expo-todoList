@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useRef } from 'react';
-import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { StyleSheet, SafeAreaView, FlatList, AsyncStorage } from 'react-native';
 
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
@@ -9,7 +9,8 @@ import TaskModal from './components/TaskModal';
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const nextId = useRef(4);
-  const [todos, setTodos] = useState([
+  const [todos, setTodos] = useState([]);
+  const firstTodos = [
     {
       id: 1,
       title: "일기쓰기",
@@ -25,7 +26,27 @@ export default function App() {
       title: "test test test test test test test test test test test test test test test ",
       done: false
     }
-  ]);
+  ];
+
+  useEffect(() => {
+    async function fetchData() {
+      let response = await AsyncStorage.getItem('@todo:state');
+      if (response == null) {
+        setTodos(firstTodos);
+      } else {
+        setTodos(JSON.parse(response));
+      }
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    saveTodos();
+  }, [todos]);
+
+  const saveTodos = () => {
+    AsyncStorage.setItem('@todo:state', JSON.stringify(todos));
+  }
 
   const handleModal = () => {
     setModalVisible(!modalVisible);
@@ -37,7 +58,6 @@ export default function App() {
 
   const handleToggle = (id) => {
     const index = todos.findIndex(todo => todo.id === id);
-    console.log(id);
     const selected = todos[index];
     const nextTodos = [...todos];
 
@@ -45,7 +65,6 @@ export default function App() {
       ...selected,
       done: !selected.done
     }
-
     setTodos(nextTodos);
   }
 
@@ -75,9 +94,8 @@ export default function App() {
               done={item.done}
               removeTodo={removeTodo}
               onToggle={handleToggle}
-
-              // keyExtractor={(_, index) => {
-              //   return '${index}'
+              // keyExtractor={(id, index) => {
+              //   return id + '${index}'
               // }}
             />
           )

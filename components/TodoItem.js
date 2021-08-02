@@ -24,7 +24,7 @@ const TodoItem = ({id, title, done, removeTodo, onToggle}) => {
             <FontAwesome name="check" color={done ? '#ffffff':'#e0e0e0'} size={14}/>
           </TouchableOpacity>
           <Text style={styles.title}>
-            {title}
+            {title} {id}
           </Text>
         </View>
       </View>
