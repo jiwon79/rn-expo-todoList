@@ -13,7 +13,7 @@ export default function Header({handleModal}) {
         style={styles.button}
         onPress={() => handleModal()}
       >
-        <Ionicons name='ios-add'/>
+        <Ionicons name='ios-add' style={styles.icon}/>
       </TouchableOpacity>
     </View>
   )
@@ -50,5 +50,11 @@ const styles = StyleSheet.create({
       ios: 1,
       android: 0
     }),
+    marginRight: 8,
+  },
+
+  icon: {
+    fontSize: 20,
+    color: '#fff'
   }
 })
